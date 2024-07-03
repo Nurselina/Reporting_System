@@ -22,8 +22,8 @@ public class ReportManager implements ReportService{
 
     @Override
     public void create(CreateReportRequest createReportRequest) {
-        Report report = modelMapperService.forRequest().map(createReportRequest, Report.class);
-        reportRepository.save(report);
+            Report report = modelMapperService.forRequest().map(createReportRequest, Report.class);
+            reportRepository.save(report);
     }
 
     @Override

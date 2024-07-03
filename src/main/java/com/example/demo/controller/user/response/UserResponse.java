@@ -1,5 +1,7 @@
-package com.example.demo.controller.user.employee.response;
+package com.example.demo.controller.user.response;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -7,11 +9,15 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class EmployeeResponse {
+public class UserResponse {
 
     private String name;
+
     private String surname;
+
     private String  email;
+
     private String phone;
+
     private String roleName;
 }

@@ -1,6 +1,7 @@
 package com.example.demo.repository.user;
 
 import com.example.demo.core.Base;
+import com.example.demo.repository.role.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +34,11 @@ public class User extends Base {
     @Column(name = "phone")
     private String phone;
 
-    //private String role;
+    //@ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+
 
 }

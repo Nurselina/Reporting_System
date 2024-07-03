@@ -1,4 +1,4 @@
-package com.example.demo.controller.user.employee.request;
+package com.example.demo.controller.role.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,27 +11,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateEmployeeRequest {
+public class UpdateRoleRequest {
 
     @NotNull
     private int id;
 
     @NotBlank
     private String name;
-
-    @NotBlank
-    private String surname;
-
-    @NotBlank
-    private String  email;
-
-    @NotBlank
-    private String password;
-
-    @NotBlank
-    private String phone;
-
-    @NotNull
-    int roleId;
-
 }
