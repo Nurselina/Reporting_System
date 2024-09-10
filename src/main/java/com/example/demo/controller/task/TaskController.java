@@ -21,29 +21,29 @@ public class TaskController extends BaseController {
     private final TaskService taskService;
 
     @PostMapping
-    public ResponseEntity<Void> createTask(@RequestBody @Valid CreateTaskRequest createTaskRequest){
+    public ResponseEntity<Void> create(@RequestBody @Valid CreateTaskRequest createTaskRequest){
         taskService.create(createTaskRequest);
         return answer(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping
-    public ResponseEntity<Void> updateTask(@RequestBody @Valid UpdateTaskRequest updateTaskRequest){
+    public ResponseEntity<Void> update(@RequestBody @Valid UpdateTaskRequest updateTaskRequest){
         taskService.update(updateTaskRequest);
         return answer(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskResponse> getByIdTask(@PathVariable int id){
+    public ResponseEntity<TaskResponse> getById(@PathVariable int id){
         return answer(taskService.getById(id), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskResponse>> getAllTasks(){
+    public ResponseEntity<List<TaskResponse>> getAll(){
         return answer(taskService.getAll(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable int id){
+    public ResponseEntity<Void> delete(@PathVariable int id){
         taskService.delete(id);
         return answer(HttpStatus.NO_CONTENT);
     }

@@ -12,14 +12,18 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     @Query("SELECT r FROM Report r WHERE " +
             "(:startDate IS NULL OR r.createdDate >= :startDate) AND " +
             "(:endDate IS NULL OR r.createdDate <= :endDate) AND " +
-            "(:reportTitle IS NULL OR r.reportTitle LIKE CONCAT('%', :title, '%'))")
+            "(:reportTitle IS NULL OR r.reportTitle LIKE CONCAT('%', :reportTitle, '%'))")
     List<Report> findFilteredReports(
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate,
             @Param("reportTitle") String reportTitle
     );
 
+    boolean existsByReportTitle(String reportTitle);
 
+    boolean existsByReportTitleAndIdNot(String reportTitle, int id);
+
+    boolean existsById(int id);
 
     List<Report> findByReportTitleContaining(String reportTitle);
 

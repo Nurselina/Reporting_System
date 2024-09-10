@@ -3,6 +3,8 @@ package com.example.demo.service.report;
 import com.example.demo.controller.report.request.CreateReportRequest;
 import com.example.demo.controller.report.request.UpdateReportRequest;
 import com.example.demo.controller.report.response.ReportResponse;
+import com.example.demo.core.exception.NotFoundException;
+import com.example.demo.core.exception.type.NotFoundExceptionType;
 import com.example.demo.core.mapper.ModelMapperService;
 import com.example.demo.repository.report.Report;
 import com.example.demo.repository.report.ReportRepository;
@@ -19,17 +21,24 @@ public class ReportManager implements ReportService{
 
     private final ReportRepository reportRepository;
     private final ModelMapperService modelMapperService;
+    private final ReportRules reportRules;
 
     @Override
     public void create(CreateReportRequest createReportRequest) {
+        reportRules.existsByName(createReportRequest.getReportTitle());
+        String fixedReportTitle = reportRules.fixName(createReportRequest.getReportTitle());
+        createReportRequest.setReportTitle(fixedReportTitle);
+
             Report report = modelMapperService.forRequest().map(createReportRequest, Report.class);
             reportRepository.save(report);
     }
 
     @Override
     public void update(UpdateReportRequest updateReportRequest) {
+        reportRules.existsByNameAndIdNot(updateReportRequest.getReportTitle(),updateReportRequest.getId());
+
         reportRepository.findById(updateReportRequest.getId()).orElseThrow(() ->
-                new RuntimeException("Report not found: " + updateReportRequest.getId()));
+                new NotFoundException(NotFoundExceptionType.REPORT_DATA_NOT_FOUND));
         Report report = modelMapperService.forRequest().map(updateReportRequest, Report.class);
         reportRepository.save(report);
 
@@ -38,7 +47,7 @@ public class ReportManager implements ReportService{
     @Override
     public ReportResponse getById(int id) {
         Report report = reportRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("Report not found: " + id));
+                new NotFoundException(NotFoundExceptionType.REPORT_DATA_NOT_FOUND));
 
         return modelMapperService.forResponse().map(report, ReportResponse.class);
     }
@@ -47,13 +56,15 @@ public class ReportManager implements ReportService{
     public List<ReportResponse> getAll() {
         List<Report> reportList = reportRepository.findAll();
 
+        reportRules.checkDataList(reportList);
+
         return reportList.stream().map(report -> modelMapperService.forResponse().map(report, ReportResponse.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public void delete(int id) {
-       reportRepository.findById(id).orElseThrow(() -> new RuntimeException("Report not found: " + id));
+       reportRepository.findById(id).orElseThrow(() -> new NotFoundException(NotFoundExceptionType.REPORT_DATA_NOT_FOUND));
        reportRepository.deleteById(id);
     }
 

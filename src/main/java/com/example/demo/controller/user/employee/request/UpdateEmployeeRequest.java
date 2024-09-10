@@ -1,5 +1,6 @@
 package com.example.demo.controller.user.employee.request;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,7 @@ public class UpdateEmployeeRequest {
     private String phone;
 
     @NotNull
+    @Min(1)
     int roleId;
 
 }

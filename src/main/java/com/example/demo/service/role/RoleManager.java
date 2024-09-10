@@ -6,6 +6,7 @@ import com.example.demo.controller.role.response.RoleResponse;
 import com.example.demo.core.mapper.ModelMapperService;
 import com.example.demo.repository.role.Role;
 import com.example.demo.repository.role.RoleRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

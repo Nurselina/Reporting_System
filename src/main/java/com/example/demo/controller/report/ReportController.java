@@ -64,9 +64,9 @@ public class ReportController extends BaseController {
     }
 
     @GetMapping("getAllFilter")
-    public ResponseEntity<List<ReportResponse>> getAllFiltered( @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate startDate,
-                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate endDate,
-                                                @RequestParam String reportTitle){
+    public ResponseEntity<List<ReportResponse>> getAllFiltered( @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam (required = false) LocalDate startDate,
+                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam (required = false) LocalDate endDate,
+                                                @RequestParam (required = false) String reportTitle){
         return answer(reportService.getAllFiltered(startDate, endDate, reportTitle), HttpStatus.OK);
     }
 

@@ -23,7 +23,7 @@ public class UserController extends BaseController {
     @PostMapping
     public ResponseEntity<Void> createUser(@RequestBody @Valid CreateUserRequest createUserRequest){
         userService.create(createUserRequest);
-        return answer(HttpStatus.NO_CONTENT);
+        return answer(HttpStatus.CREATED);
     }
 
     @PutMapping
